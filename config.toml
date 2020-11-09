@@ -40,7 +40,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   # gravatarEmail = "thibaud.lepretre@gmail.com"
   # Your profile picture
   # Overwritten by your gravatar image if `author.gravatarEmail` is filled
-  picture = "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
+  picture = "https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082"
+  # "/static/img/profile-pic.png" 
+  # "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
   # Your Twitter username without the @. E.g : thibaudlepretre
   twitter = ""
   # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311
@@ -83,6 +85,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   identifier = "github"
   name = "GitHub"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-github\"></i>"
+  # url = "<a href=\"https://github.com/goodfr?tab=repositories\"></a>"
   url = "https://github.com/goodfr?tab=repositories"
 [[menu.links]]
   weight = 2
@@ -90,18 +93,21 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   name = "Stack Overflow"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-stack-overflow\"></i>"
   url = "https://stackoverflow.com/users/10983470/cbo?tab=profile"
+  # url = "<a href=\"https://stackoverflow.com/users/10983470/cbo?tab=profile\"></a>"
 [[menu.links]]
   weight = 3
   identifier = "twitter"
   name = "Twitter"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-twitter\"></i>"
   url = "https://twitter.com/bonamy_camille"
+  # url = "<a href=\"https://twitter.com/bonamy_camille\"></a>"
 [[menu.links]]
   weight = 4
   identifier = "linkedin"
   name = "Linkedin"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-linkedin\"></i>"
   url = "https://www.linkedin.com/in/camille-bonamy-715460137/"
+  # "<a href=\"https://www.linkedin.com/in/camille-bonamy-715460137/\"></a>"
 
 #[[menu.misc]]
 #  weight = 1
@@ -202,12 +208,12 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   [[params.sharingOptions]]
     name = "Twitter"
     icon = "fa-twitter"
-    url = "https://twitter.com/intent/tweet?text=%s"
+    url = "<a href=\"https://twitter.com/intent/tweet?text=%s\"></a>"
 
   [[params.sharingOptions]]
     name = "Google+"
     icon = "fa-google-plus"
-    url = "https://plus.google.com/share?url=%s"
+    url = "<a href=\"https://plus.google.com/share?url=%s\"></a>"
 
   [params.header.rightLink]
     class = ""

@@ -35,10 +35,6 @@ Code practiceOne of the first advice I would give my past stat student self is 
 
 <meta name="twitter:card" content="summary">
 
-  <meta name="twitter:site" content="@thibaudlepretre">
-
-
-  <meta name="twitter:creator" content="@thibaudlepretre">
 
 
 
@@ -49,8 +45,8 @@ Code practiceOne of the first advice I would give my past stat student self is 
 
 
 
-  <meta property="og:image" content="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
-  <meta property="twitter:image" content="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
+  <meta property="og:image" content="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082">
+  <meta property="twitter:image" content="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082">
 
 
     <title>Hello reprex</title>
@@ -93,7 +89,7 @@ Code practiceOne of the first advice I would give my past stat student self is 
     
     
       
-        <img class="header-picture" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png" alt="Author&#39;s picture" />
+        <img class="header-picture" src="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082" alt="Author&#39;s picture" />
       
     
     </a>
@@ -105,7 +101,7 @@ Code practiceOne of the first advice I would give my past stat student self is 
     
       <div class="sidebar-profile">
         <a href="/#about">
-          <img class="sidebar-profile-picture" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png" alt="Author&#39;s picture" />
+          <img class="sidebar-profile-picture" src="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082" alt="Author&#39;s picture" />
         </a>
         <h4 class="sidebar-profile-name">Camille Bonamy</h4>
         
@@ -566,7 +562,7 @@ dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;¦&quot;
 <li>bonus : it handles sharing graphics with the <em>imgur</em> service</li>
 </ul>
 <p>That way one could answer the question at hand with a complete set of information including the environment used (OS and packages version) as follow :</p>
-<p><em>Special characters are not handled well for now, other language than English a can use ANSI code (for Europe, utf8 otherwise) this way : “¦” is coded “6”.</em></p>
+<p><em>Special characters are not handled well for now, other language than English a can use ANSI code (for Europe, utf8 otherwise) this way : <code>¦</code> is coded <code>\xa6</code>.</em></p>
 <pre class="r"><code>reprex::reprex(x = {
     dfr &lt;- tibble::tribble(
         ~var1,          ~var2, ~var3,
@@ -706,6 +702,10 @@ dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;\xa6&quo
 </ul>
 </div>
 </div>
+<div id="to-go-further" class="section level2">
+<h2>To go further</h2>
+<p>One could share Docker container to fix the OS, packages version and so on. There are 2 nice package manager tool for that in Python and R with respectively <code>conda</code> (package management system) and <code>renv</code> (a R package that detect and register your configuration and used packages version).</p>
+</div>
 
               
             </div>
@@ -747,19 +747,13 @@ dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;\xa6&quo
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/1/01/hello-reprex/">
-              <i class="fa fa-facebook-official"></i>
-            </a>
-          </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/1/01/hello-reprex/">
+            <a class="post-action-btn btn btn--default" target="new" href="#ZgotmplZ">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/1/01/hello-reprex/">
+            <a class="post-action-btn btn btn--default" target="new" href="#ZgotmplZ">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -823,19 +817,13 @@ dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;\xa6&quo
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/1/01/hello-reprex/">
-              <i class="fa fa-facebook-official"></i>
-            </a>
-          </li>
-        
-          <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/1/01/hello-reprex/">
+            <a class="post-action-btn btn btn--default" target="new" href="#ZgotmplZ">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/1/01/hello-reprex/">
+            <a class="post-action-btn btn btn--default" target="new" href="#ZgotmplZ">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -859,19 +847,13 @@ dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;\xa6&quo
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F1%2F01%2Fhello-reprex%2F">
-          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
-        </a>
-      </li>
-    
-      <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F1%2F01%2Fhello-reprex%2F">
+        <a class="share-option-btn" target="new" href="#ZgotmplZ">
           <i class="fa fa-twitter"></i><span>Share on Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F1%2F01%2Fhello-reprex%2F">
+        <a class="share-option-btn" target="new" href="#ZgotmplZ">
           <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
         </a>
       </li>
@@ -887,7 +869,7 @@ dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;\xa6&quo
       <i class="fa fa-remove"></i>
     </div>
     
-      <img id="about-card-picture" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png" alt="Author&#39;s picture" />
+      <img id="about-card-picture" src="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082" alt="Author&#39;s picture" />
     
     <h4 id="about-card-name">Camille Bonamy</h4>
     

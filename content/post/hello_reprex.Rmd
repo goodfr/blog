@@ -355,7 +355,7 @@ The package `reprex` was originaly created by Jenny Bryan. It allows one to ensu
   
 That way one could answer the question at hand with a complete set of information including the environment used (OS and packages version) as follow :
 
-*Special characters are not handled well for now, other language than English a can use ANSI code (for Europe, utf8 otherwise) this way : "¦" is coded "\xa6".*
+*Special characters are not handled well for now, other language than English a can use ANSI code (for Europe, utf8 otherwise) this way : `¦` is coded `\xa6`.*
 
 ```{r complete and sharable answer, eval=FALSE, warning=FALSE, message=FALSE}
 reprex::reprex(x = {

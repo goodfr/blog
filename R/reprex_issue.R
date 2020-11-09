@@ -115,3 +115,20 @@ reprex_locale(x = {
 # Sys.getlocale()
 
 withr::local_envvar(c("LC_COLLATE" = "French_France.1252"))
+
+
+
+# new trial with updated advice 9 11 20
+# try with locale = "fr_LU.UTF-8"
+reprex_locale(x = {
+	tibble::tribble(
+		~var1,          ~var2, ~var3,
+		"gr¦pefruit",   "ugli fruit",    4L,
+		"huckleberry",      "kumquat",    6L,
+		"duri¦n", "blackcurrant",    1L,
+		"d¦te",   "cantaloup¦",    1L,
+		"fig", "canary m¦lon",    6L,
+		"s¦l¦l berry",     "rambutan",    5L
+	)}, language = "fr",
+	locale = c("LC_COLLATE" = "fr_LU.UTF-8")
+)

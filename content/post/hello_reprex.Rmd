@@ -1,0 +1,506 @@
+---
+title: "Hello reprex"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*Disclaimer* : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.
+
+
+## Code practice
+
+One of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).
+
+There are many ways to practice your coding skill such as doing data analysis project (e.g with [TidyTuesday](https://github.com/rfordatascience/tidytuesday)), modeling project ([kaggle](https://www.kaggle.com/) or [challengedata](https://challengedata.ens.fr/challenges/year/2020)), contributing to open source (by fixing github issues) or trying to help people with their questions on forums.
+
+We will focus today on what I think worked for me : trying to help on forums. There are several websites you can choose from including :
+
+  * [StackOverflow](https://stackoverflow.com/)
+  * Language specific community site
+    * [SAS communities](https://communities.sas.com/)
+    * [RStudio community](https://community.rstudio.com/)
+  * Open source language forums and mailing list.
+    * [python.org](https://www.python.org/)
+    * [r-project.org](https://www.r-project.org/)
+  * Google groups
+  * ...
+
+
+## You said REPRoducible EXemple (REPREX) ?
+
+I first came to know of **reproducible example** while practicing coding with `Stack Overflow`. There are two simple and difficult subjects when interacting on site and forums in **asking a good question** and **giving a good answer**. Indeed asking or trying to help :
+
+  * compels you to sum up whatever problems you are trying to solve into (ideally) smaller code problems. This is important since you will get clear output : a well formulated code problem will either work or not.
+  
+  * to that end you have to share sufficient sample data (thus the **example**) and runnable code (hence the **reproducible**) to illustrate what you want to achieve.
+  
+In that perspective `StackOverflow` is a good place to practice and learn with enough gamification with points and bronze/silver/gold badges to keep you motivated for a time and feedback (sometime nice, sometime harsh) on the quality of your contribution.
+  
+
+**To sum up** : a **REPRodicible EXample** is a bundle of information (data, runnable codes, environment, OS and package version) allowing one to share his results and error identically.
+
+Such object is quite useful to :
+
+  * ensure that someone gets to the point where you are and understand what you want to achieve [question side] 
+  * reproduce error messages and bugs [general side]
+  * share a solution that should work for everyone [answer side]
+
+
+SO Resources :
+
+- [how-to-ask](https://stackoverflow.com/help/how-to-ask)
+- [minimal-reproducible-example](https://stackoverflow.com/help/minimal-reproducible-example)
+
+---
+
+Today I was working with Python and SAS. Having used mostly `R` before, the first thing I compared was how to get help from the documentation (with examples, not always runnable) and forums (with reprex).
+
+For example suppose you have to clean some data by replacing the ▒ character with something. One universal format used in data science software is the `data frame` (Python, R) or the `table` (SAS) data format. Those objects allows one to wrangle data and organize it in a meaningful way for analysis. 
+
+```{r create data, echo = FALSE}
+# table example here
+set.seed(456)
+dfr <- tibble::tibble(
+  var1 = sample(stringr::fruit, 6),
+  var2 = sample(stringr::fruit, 6),
+  var3 = sample(1:6, 6, replace = TRUE)
+)
+dfr$var1 <- stringr::str_replace_all(string = dfr$var1, pattern =  "a", replacement = "▒")
+dfr$var2 <- stringr::str_replace_all(string = dfr$var2, pattern =  "e", replacement = "▒")
+
+knitr::kable(dfr, format = "simple")
+```
+
+---
+
+### SAS
+
+The first step to dive into this problem is to reproduce the data. In SAS there are several ways to share sample data such as :
+
+* using a built-in sample data available (in the sashelp)
+
+```{}
+data work.test ;
+  set sashelp.cars (obs = 10) ; 
+run ;
+```
+
+* use a CSV file (or any popular other format) - this method is not recommended though since it puts extra work on the side of the one that wants to help you or reproduce your research
+
+```{}
+/* use the work library for tests */
+proc import file = "path_to_file" out = work.table_name ; run;
+```
+
+* with a data step and `datalines` command (I have cheated a little by adding the `|` separator to simplify things)
+
+```{}
+data test;
+	infile datalines dsd dlm='|' truncover ;
+	input var1 :$20. var2 :$20. var3 ;
+	datalines ;
+gr¦pefruit|ugli fruit|4
+huckleberry|kumquat|6
+duri¦n|blackcurrant|1
+d¦te|cantaloup¦|1
+fig|canary m¦lon|6
+s¦l¦l berry|rambutan|5
+;;;;
+run;
+
+/* that gives */
+/*
+> 1	gr¦pefruit	ugli fruit	4
+> 2	huckleberry	kumquat	6	
+> 3	duri¦n	blackcurrant	1	
+> 4	d¦te	cantaloup¦	1	
+> 5	fig	canary m¦lon	6	
+> 6	s¦l¦l berry	rambutan	5
+*/
+```
+
+
+They are many ways to fix this data with for the examples the use of the `prxchange` and the `tranwrd` functions :
+
+```{}
+data test_clean ;
+	set test ;
+	var1 = prxchange("s/¦/a/i", -1, var1) ;
+	var2 = tranwrd(var2, "¦", "e") ;
+run ;
+
+/* result */
+/*
+> 1	grapefruit	ugli fruit	4	
+> 2	huckleberry	kumquat	6	
+> 3	durian	blackcurrant	1	
+> 4	date	cantaloupe	1	
+> 5	fig	canary melon	6	
+> 6	salal berry	rambutan	5
+*/
+```
+
+This concludes the resolution of the problem with a reprex in question (for sharing the data) and a reprex in solution that anyone having an installation of SAS 9.4 available should be able to run with copy/paste.
+
+
+Note : aside from Stack Overflow, SAS users should find useful contents with the [SAS Communities](https://communities.sas.com/) website that is a language specific free help platform.
+
+More ways to share SAS reprex with this [SAS Communities question](https://communities.sas.com/t5/SAS-Communities-Library/How-to-create-a-data-step-version-of-your-data-AKA-generate/ta-p/258712)
+
+
+---
+
+
+### Python
+
+`Pandas` should be your go to when handling data with Python. Here to reproduce the data we can directly as a pandas.Data.Frame one can load the pandas package
+
+```{r set up python version, include=FALSE}
+# ref https://rstudio.github.io/reticulate/articles/versions.html
+# reticulate::py_discover_config() // ne trouve pas la version voulue
+
+# KO
+# reticulate::use_python("C:\\Users\\cbonamy\\AppData\\Local\\Programs\\Python\\Python38-32")
+
+# reticulate::use_python("C:\\Users\\cbonamy\\Anaconda3\\bin")
+
+# en default de cause
+# reticulate::py_install("pandas")
+```
+
+
+```{python pandas import}
+import pandas as pd
+```
+
+then define the dataframe from its rows with 6 vectors :
+
+```{python vector data frame}
+dfr_vec = pd.DataFrame([ ["gr¦pefruit", "ugli fruit", 4],
+				["huckleberry", "kumquat", 6],
+				["duri¦n", "blackcurrant", 1],
+				["d¦te", "cantaloup¦", 1],
+				["fig", "canary m¦lon", 6],
+				["s¦l¦l berry", "rambutan", 5] ],
+			columns = ["var1", "var2", "var3"]
+			)
+dfr_vec
+```
+
+or using the dictionary from with :
+
+```{python dictionary data frame}
+dfr_dic = pd.DataFrame({"var1" : ["gr¦pefruit", "huckleberry","duri¦n","d¦te","fig","s¦l¦l berry"],
+"var2" : ["ugli fruit","kumquat", "blackcurrant","cantaloup¦","canary m¦lon", "rambutan"],
+"var3" : [4, 6, 1, 1, 6, 5]})
+dfr_dic
+```
+
+
+* pd.read_clipboard : allows one to import the data as a  `pandas.DataFrame` from what is copied in the clipboard. Here for purpose of the example you can test it with copying the `print` (the `head` method won't work well) of the previous data frame :
+
+```
+          var1          var2  var3
+0   gr¦pefruit    ugli fruit     4
+1  huckleberry       kumquat     6
+2       duri¦n  blackcurrant     1
+3         d¦te    cantaloup¦     1
+4          fig  canary m¦lon     6
+5  s¦l¦l berry      rambutan     5
+```
+
+becomes :
+
+```{}
+# read data frame from clipboard
+dfr_bis = pd.read_clipboard(sep='\s\s+')
+dfr_bis
+
+          var1          var2  var3
+0   gr¦pefruit    ugli fruit     4
+1  huckleberry       kumquat     6
+2       duri¦n  blackcurrant     1
+3         d¦te    cantaloup¦     1
+4          fig  canary m¦lon     6
+5  s¦l¦l berry      rambutan     5
+```
+
+
+Fixing the character issue with pandas :
+
+```{python py fix string}
+dfr_dic['var1'] = dfr_dic['var1'].str.replace('¦','a')
+dfr_dic['var2'] = dfr_dic['var2'].str.replace('¦','e')
+dfr_dic
+```
+
+More resources :
+- [how-to-make-good-reproducible-pandas-examples](https://stackoverflow.com/questions/20109391/how-to-make-good-reproducible-pandas-examples)
+
+- [pandas cheatcheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
+
+
+---
+
+
+### R
+
+**Sharing data**
+
+Most of the time the data already exists in memory (here with `dfr`). So you should sample it if needed 
+with :
+
+```{r r sample data}
+dfr_head <- head(dfr)
+
+# or randomly
+
+dfr_sample <- dfr[ sample(x = 1:nrow(dfr), size = 6) , ]
+```
+
+Then you can either write yourself the data to share as below by rows or by columns or `dput()` the package `datapasta` to produce such output.
+
+0. `dput` is a base R function to ouput "text representation of an R object"
+
+```{r dput}
+dput(dfr)
+```
+
+
+1. `datapaste::trible_paste` for printing inline an existing dataframe by rows
+
+```{}
+datapasta::tribble_paste(dfr)
+
+tibble::tribble(
+                   ~var1,          ~var2, ~var3,
+            "gr¦pefruit",   "ugli fruit",    4L,
+           "huckleberry",      "kumquat",    6L,
+                "duri¦n", "blackcurrant",    1L,
+                  "d¦te",   "cantaloup¦",    1L,
+                   "fig", "canary m¦lon",    6L,
+           "s¦l¦l berry",     "rambutan",    5L
+           )
+```
+
+2. `datapasta::df_paste` for printing inline an existing dataframe by columns
+
+```{}
+datapasta::df_paste(dfr)
+
+data.frame(
+  stringsAsFactors = FALSE,
+                 var1 = c("gr¦pefruit",
+                          "huckleberry","duri¦n","d¦te","fig","s¦l¦l berry"),
+                 var2 = c("ugli fruit","kumquat",
+                          "blackcurrant","cantaloup¦","canary m¦lon",
+                          "rambutan"),
+              var3 = c(4L, 6L, 1L, 1L, 6L, 5L)
+   )
+```
+
+3. From the clipboard you can copy the table below and paste is follows
+
+```{r data to copy to clipboard, echo = FALSE}
+# datapasta::tribble_paste(dfr)
+knitr::kable( tibble::tribble(
+                             ~var1,          ~var2, ~var3,
+                      "gr¦pefruit",   "ugli fruit",    4L,
+                     "huckleberry",      "kumquat",    6L,
+                          "duri¦n", "blackcurrant",    1L,
+                            "d¦te",   "cantaloup¦",    1L,
+                             "fig", "canary m¦lon",    6L,
+                     "s¦l¦l berry",     "rambutan",    5L
+                     )
+)
+```
+
+```{r datapaste tribble, eval=FALSE}
+datapasta::tribble_paste()
+```
+
+
+**Answering the problem at hand and sharing your rersult in a reproducible way**
+
+```{r r solutions, warning=FALSE, message=FALSE}
+# Method 1 - base R
+dfr_clean <- dfr
+dfr_clean$var1 <- gsub(pattern = "¦", replacement = "a", x = dfr$var1)
+dfr_clean[["var2"]] <- gsub(pattern = "¦", replacement = "e", x = dfr$var2)
+
+# Method 2 - tidyverse
+library(dplyr)
+library(stringr)
+dfr %>% mutate(var1 = str_replace_all(string = var1, pattern = "¦", replacement = "a"),
+	       var2 = str_replace_all(string = var2, pattern = "¦", replacement = "e")
+	       )
+```
+
+
+** Finally : Why sharing runnable sample code with R is easy **
+
+Because some genius already made the hard work for you !
+
+The package `reprex` was originaly created by Jenny Bryan. It allows one to ensure that you are effectively sharing a reprex as such :
+
+  * if your code is not runnable in a new blank R session (no outside global/local variable shall work here) --> it fails.
+  * your data must be available either in the code or any other viable way (like a public API)
+  * package version and other session information can be shared
+  * bonus : it handles sharing graphics with the *imgur* service
+  
+That way one could answer the question at hand with a complete set of information including the environment used (OS and packages version) as follow :
+
+*Special characters are not handled well for now, other language than English a can use ANSI code (for Europe, utf8 otherwise) this way : "¦" is coded "\xa6".*
+
+```{r complete and sharable answer, eval=FALSE, warning=FALSE, message=FALSE}
+reprex::reprex(x = {
+	dfr <- tibble::tribble(
+		~var1,          ~var2, ~var3,
+		"gr\xa6pefruit",   "ugli fruit",    4L,
+		"huckleberry",      "kumquat",    6L,
+		"duri\xa6n", "blackcurrant",    1L,
+		"d\xa6te",   "cantaloup\xa6",    1L,
+		"fig", "canary m\xa6lon",    6L,
+		"s\xa6l\xa6l berry",     "rambutan",    5L
+	)
+	dfr
+	
+	# Method 1 - base R
+	dfr_clean <- dfr
+	dfr_clean$var1 <- gsub(pattern = "\xa6", replacement = "a", x = dfr$var1)
+	dfr_clean[["var2"]] <- gsub(pattern = "\xa6", replacement = "e", x = dfr$var2)
+	
+	# Method 2 - tidyverse
+	suppressPackageStartupMessages( library(dplyr) )
+	suppressPackageStartupMessages( library(stringr) )
+	dfr %>% mutate(var1 = str_replace_all(string = var1, pattern = "\xa6", replacement = "a"),
+		       var2 = str_replace_all(string = var2, pattern = "\xa6", replacement = "e")
+	)
+}, si = TRUE, venue = "so")
+```
+
+Which gives the following in the "Viewer" pane for preview and is also copied to the clipboard :
+
+<!-- language-all: lang-r -->
+
+
+    dfr <- tibble::tribble(
+        ~var1,          ~var2, ~var3,
+        "gr\xa6pefruit",   "ugli fruit",    4L,
+        "huckleberry",      "kumquat",    6L,
+        "duri\xa6n", "blackcurrant",    1L,
+        "d\xa6te",   "cantaloup\xa6",    1L,
+        "fig", "canary m\xa6lon",    6L,
+        "s\xa6l\xa6l berry",     "rambutan",    5L
+    )
+    dfr
+    #> # A tibble: 6 x 3
+    #>   var1        var2          var3
+    #>   <chr>       <chr>        <int>
+    #> 1 gr¦pefruit  ugli fruit       4
+    #> 2 huckleberry kumquat          6
+    #> 3 duri¦n      blackcurrant     1
+    #> 4 d¦te        cantaloup¦       1
+    #> 5 fig         canary m¦lon     6
+    #> 6 s¦l¦l berry rambutan         5
+
+    # Method 1 - base R
+    dfr_clean <- dfr
+    dfr_clean$var1 <- gsub(pattern = "\xa6", replacement = "a", x = dfr$var1)
+    dfr_clean[["var2"]] <- gsub(pattern = "\xa6", replacement = "e", x = dfr$var2)
+
+    # Method 2 - tidyverse
+    suppressPackageStartupMessages( library(dplyr) )
+    suppressPackageStartupMessages( library(stringr) )
+    dfr %>% mutate(var1 = str_replace_all(string = var1, pattern = "\xa6", replacement = "a"),
+               var2 = str_replace_all(string = var2, pattern = "\xa6", replacement = "e")
+    )
+    #> # A tibble: 6 x 3
+    #>   var1        var2          var3
+    #>   <chr>       <chr>        <int>
+    #> 1 grapefruit  ugli fruit       4
+    #> 2 huckleberry kumquat          6
+    #> 3 durian      blackcurrant     1
+    #> 4 date        cantaloupe       1
+    #> 5 fig         canary melon     6
+    #> 6 salal berry rambutan         5
+
+<sup>Created on 2020-11-08 by the [reprex package](https://reprex.tidyverse.org) (v0.3.0)</sup>
+
+    devtools::session_info()
+    #> - Session info ---------------------------------------------------------------
+    #>  setting  value                       
+    #>  version  R version 4.0.2 (2020-06-22)
+    #>  os       Windows 10 x64              
+    #>  system   x86_64, mingw32             
+    #>  ui       RTerm                       
+    #>  language (EN)                        
+    #>  collate  French_France.1252          
+    #>  ctype    French_France.1252          
+    #>  tz       Europe/Paris                
+    #>  date     2020-11-08                  
+    #> 
+    #> - Packages -------------------------------------------------------------------
+    #>  package     * version date       lib source        
+    #>  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.2)
+    #>  backports     1.1.7   2020-05-13 [1] CRAN (R 4.0.0)
+    #>  callr         3.4.3   2020-03-28 [1] CRAN (R 4.0.2)
+    #>  cli           2.0.2   2020-02-28 [1] CRAN (R 4.0.2)
+    #>  crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.2)
+    #>  desc          1.2.0   2018-05-01 [1] CRAN (R 4.0.2)
+    #>  devtools      2.3.0   2020-04-10 [1] CRAN (R 4.0.2)
+    #>  digest        0.6.25  2020-02-23 [1] CRAN (R 4.0.2)
+    #>  dplyr       * 1.0.0   2020-05-29 [1] CRAN (R 4.0.2)
+    #>  ellipsis      0.3.1   2020-05-15 [1] CRAN (R 4.0.2)
+    #>  evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.2)
+    #>  fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.2)
+    #>  fs            1.4.2   2020-06-30 [1] CRAN (R 4.0.2)
+    #>  generics      0.0.2   2018-11-29 [1] CRAN (R 4.0.2)
+    #>  glue          1.4.1   2020-05-13 [1] CRAN (R 4.0.2)
+    #>  highr         0.8     2019-03-20 [1] CRAN (R 4.0.2)
+    #>  htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.2)
+    #>  knitr         1.29    2020-06-23 [1] CRAN (R 4.0.2)
+    #>  lifecycle     0.2.0   2020-03-06 [1] CRAN (R 4.0.2)
+    #>  magrittr      1.5     2014-11-22 [1] CRAN (R 4.0.2)
+    #>  memoise       1.1.0   2017-04-21 [1] CRAN (R 4.0.2)
+    #>  pillar        1.4.6   2020-07-10 [1] CRAN (R 4.0.2)
+    #>  pkgbuild      1.1.0   2020-07-13 [1] CRAN (R 4.0.2)
+    #>  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.0.2)
+    #>  pkgload       1.1.0   2020-05-29 [1] CRAN (R 4.0.2)
+    #>  prettyunits   1.1.1   2020-01-24 [1] CRAN (R 4.0.2)
+    #>  processx      3.4.3   2020-07-05 [1] CRAN (R 4.0.2)
+    #>  ps            1.3.3   2020-05-08 [1] CRAN (R 4.0.2)
+    #>  purrr         0.3.4   2020-04-17 [1] CRAN (R 4.0.2)
+    #>  R6            2.4.1   2019-11-12 [1] CRAN (R 4.0.2)
+    #>  remotes       2.1.1   2020-02-15 [1] CRAN (R 4.0.2)
+    #>  rlang         0.4.7   2020-07-09 [1] CRAN (R 4.0.2)
+    #>  rmarkdown     2.3     2020-06-18 [1] CRAN (R 4.0.2)
+    #>  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 4.0.2)
+    #>  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 4.0.2)
+    #>  stringi       1.4.6   2020-02-17 [1] CRAN (R 4.0.0)
+    #>  stringr     * 1.4.0   2019-02-10 [1] CRAN (R 4.0.2)
+    #>  testthat      2.3.2   2020-03-02 [1] CRAN (R 4.0.2)
+    #>  tibble        3.0.3   2020-07-10 [1] CRAN (R 4.0.2)
+    #>  tidyselect    1.1.0   2020-05-11 [1] CRAN (R 4.0.2)
+    #>  usethis       1.6.1   2020-04-29 [1] CRAN (R 4.0.2)
+    #>  utf8          1.1.4   2018-05-24 [1] CRAN (R 4.0.2)
+    #>  vctrs         0.3.2   2020-07-15 [1] CRAN (R 4.0.2)
+    #>  withr         2.2.0   2020-04-20 [1] CRAN (R 4.0.2)
+    #>  xfun          0.15    2020-06-21 [1] CRAN (R 4.0.2)
+    #>  yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.0)
+    #> 
+    #> [1] C:/Users/cbonamy/Documents/R/win-library/4.0
+    #> [2] C:/Program Files/R/R-4.0.2/library
+
+
+
+R References :
+
+- [SO how-to-make-a-great-r-reproducible-example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example)
+- [R Community faq](https://community.rstudio.com/t/faq-whats-a-reproducible-example-reprex-and-how-do-i-do-one/5219)
+- [R Community faq 2](https://community.rstudio.com/t/faq-how-to-do-a-minimal-reproducible-example-reprex-for-beginners/23061)

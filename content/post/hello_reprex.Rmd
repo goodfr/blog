@@ -504,3 +504,8 @@ R References :
 - [SO how-to-make-a-great-r-reproducible-example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example)
 - [R Community faq](https://community.rstudio.com/t/faq-whats-a-reproducible-example-reprex-and-how-do-i-do-one/5219)
 - [R Community faq 2](https://community.rstudio.com/t/faq-how-to-do-a-minimal-reproducible-example-reprex-for-beginners/23061)
+
+
+## To go further
+
+One could share Docker container to fix the OS, packages version and so on. There are 2 nice package manager tool for that in Python and R with respectively `conda` (package management system) and `renv` (a R package that detect and register your configuration and used packages version).

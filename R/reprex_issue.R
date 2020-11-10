@@ -132,3 +132,10 @@ reprex_locale(x = {
 	)}, language = "fr",
 	locale = c("LC_COLLATE" = "fr_LU.UTF-8")
 )
+
+
+Sys.getlocale()
+Sys.setlocale(category = "LC_TIME", locale = "fr_FR.UTF-8")
+?Sys.setlocale
+
+l10n_info()

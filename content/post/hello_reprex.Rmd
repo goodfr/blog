@@ -2,15 +2,15 @@
 title: Hello reprex
 editor_options: 
   chunk_output_type: console
-author: goodfr
+author: ''
 date: '2020-10-29'
-slug: the-good-the-bad-and-the-ugly-in-data-imputation.en-us
+slug: hello_reprex.en-us
 categories:
   - howto
 tags:
   - data science
-  - sas
-  - python
+  - SAS
+  - Python
   - R
 keywords:
   - methods
@@ -366,33 +366,29 @@ The package `reprex` was originaly created by Jenny Bryan. It allows one to ensu
   
 That way one could answer the question at hand with a complete set of information including the environment used (OS and packages version) as follow :
 
-~~*Special characters are not handled well for now, other language than English can use ANSI code (for Europe, utf8 otherwise) this way : `¦` is coded `\xa6`.*~~
-
-**Edit** : updating `reprex` to the dev version solved the issue (specific to windows)
-
 ```{r complete and sharable answer, eval=FALSE, warning=FALSE, message=FALSE}
 reprex::reprex(x = {
 	dfr <- tibble::tribble(
 		~var1,          ~var2, ~var3,
-		"gr\xa6pefruit",   "ugli fruit",    4L,
+		"gr¦pefruit",   "ugli fruit",    4L,
 		"huckleberry",      "kumquat",    6L,
-		"duri\xa6n", "blackcurrant",    1L,
-		"d\xa6te",   "cantaloup\xa6",    1L,
-		"fig", "canary m\xa6lon",    6L,
-		"s\xa6l\xa6l berry",     "rambutan",    5L
+		"duri¦n", "blackcurrant",    1L,
+		"d¦te",   "cantaloup¦",    1L,
+		"fig", "canary m¦lon",    6L,
+		"s¦l¦l berry",     "rambutan",    5L
 	)
 	dfr
 	
 	# Method 1 - base R
 	dfr_clean <- dfr
-	dfr_clean$var1 <- gsub(pattern = "\xa6", replacement = "a", x = dfr$var1)
-	dfr_clean[["var2"]] <- gsub(pattern = "\xa6", replacement = "e", x = dfr$var2)
+	dfr_clean$var1 <- gsub(pattern = "¦", replacement = "a", x = dfr$var1)
+	dfr_clean[["var2"]] <- gsub(pattern = "¦", replacement = "e", x = dfr$var2)
 	
 	# Method 2 - tidyverse
 	suppressPackageStartupMessages( library(dplyr) )
 	suppressPackageStartupMessages( library(stringr) )
-	dfr %>% mutate(var1 = str_replace_all(string = var1, pattern = "\xa6", replacement = "a"),
-		       var2 = str_replace_all(string = var2, pattern = "\xa6", replacement = "e")
+	dfr %>% mutate(var1 = str_replace_all(string = var1, pattern = "¦", replacement = "a"),
+		       var2 = str_replace_all(string = var2, pattern = "¦", replacement = "e")
 	)
 }, si = TRUE, venue = "so")
 ```
@@ -404,12 +400,12 @@ Which gives the following in the "Viewer" pane for preview and is also copied to
 
     dfr <- tibble::tribble(
         ~var1,          ~var2, ~var3,
-        "gr\xa6pefruit",   "ugli fruit",    4L,
+        "gr¦pefruit",   "ugli fruit",    4L,
         "huckleberry",      "kumquat",    6L,
-        "duri\xa6n", "blackcurrant",    1L,
-        "d\xa6te",   "cantaloup\xa6",    1L,
-        "fig", "canary m\xa6lon",    6L,
-        "s\xa6l\xa6l berry",     "rambutan",    5L
+        "duri¦n", "blackcurrant",    1L,
+        "d¦te",   "cantaloup¦",    1L,
+        "fig", "canary m¦lon",    6L,
+        "s¦l¦l berry",     "rambutan",    5L
     )
     dfr
     #> # A tibble: 6 x 3
@@ -424,14 +420,14 @@ Which gives the following in the "Viewer" pane for preview and is also copied to
 
     # Method 1 - base R
     dfr_clean <- dfr
-    dfr_clean$var1 <- gsub(pattern = "\xa6", replacement = "a", x = dfr$var1)
-    dfr_clean[["var2"]] <- gsub(pattern = "\xa6", replacement = "e", x = dfr$var2)
+    dfr_clean$var1 <- gsub(pattern = "¦", replacement = "a", x = dfr$var1)
+    dfr_clean[["var2"]] <- gsub(pattern = "¦", replacement = "e", x = dfr$var2)
 
     # Method 2 - tidyverse
     suppressPackageStartupMessages( library(dplyr) )
     suppressPackageStartupMessages( library(stringr) )
-    dfr %>% mutate(var1 = str_replace_all(string = var1, pattern = "\xa6", replacement = "a"),
-               var2 = str_replace_all(string = var2, pattern = "\xa6", replacement = "e")
+    dfr %>% mutate(var1 = str_replace_all(string = var1, pattern = "¦", replacement = "a"),
+               var2 = str_replace_all(string = var2, pattern = "¦", replacement = "e")
     )
     #> # A tibble: 6 x 3
     #>   var1        var2          var3

@@ -5,6 +5,8 @@ editor_options:
 author: ''
 date: '2020-10-29'
 slug: hello_reprex.en-us
+thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
+thumbnailImagePosition: left
 categories:
   - howto
 tags:

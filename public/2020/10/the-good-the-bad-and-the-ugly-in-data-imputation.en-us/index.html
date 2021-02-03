@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.76.5 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Camille Bonamy">
+<meta name="keywords" content="methods">
+<meta name="description" content="Disclaimer : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.
+Code practiceOne of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).">
+
+
+<meta property="og:description" content="Disclaimer : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.
+Code practiceOne of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello reprex">
+<meta name="twitter:title" content="Hello reprex">
+<meta property="og:url" content="/2020/10/the-good-the-bad-and-the-ugly-in-data-imputation.en-us/">
+<meta property="twitter:url" content="/2020/10/the-good-the-bad-and-the-ugly-in-data-imputation.en-us/">
+<meta property="og:site_name" content="">
+<meta property="og:description" content="Disclaimer : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.
+Code practiceOne of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).">
+<meta name="twitter:description" content="Disclaimer : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.
+Code practiceOne of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-10-29T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2020-10-29T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="howto">
+    
+  
+  
+    
+      <meta property="article:tag" content="data science">
+    
+      <meta property="article:tag" content="sas">
+    
+      <meta property="article:tag" content="python">
+    
+      <meta property="article:tag" content="R">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082">
+  <meta property="twitter:image" content="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082">
+
+
+    <title>Hello reprex</title>
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="/2020/10/the-good-the-bad-and-the-ugly-in-data-imputation.en-us/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/"></a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Camille Bonamy</h4>
+        
+          <h5 class="sidebar-profile-bio">Data scientist in consulting for industry and banking. This blog is an attempt to plan and document my learnings.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/goodfr?tab=repositories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://stackoverflow.com/users/10983470/cbo?tab=profile">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/bonamy_camille">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/camille-bonamy-715460137/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
+      
+      <span class="sidebar-button-desc">Linkedin</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Hello reprex
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-10-29T00:00:00Z">
+        
+  October 29, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/howto">howto</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+
+<p><em>Disclaimer</em> : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.</p>
+<div id="code-practice" class="section level2">
+<h2>Code practice</h2>
+<p>One of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).</p>
+<p>There are many ways to practice your coding skill such as doing data analysis project (e.g with <a href="https://github.com/rfordatascience/tidytuesday">TidyTuesday</a>), modeling project (<a href="https://www.kaggle.com/">kaggle</a> or <a href="https://challengedata.ens.fr/challenges/year/2020">challengedata</a>), contributing to open source (by fixing github issues) or trying to help people with their questions on forums.</p>
+<p>We will focus today on what I think worked for me : trying to help on forums. There are several websites you can choose from including :</p>
+<ul>
+<li><a href="https://stackoverflow.com/">StackOverflow</a></li>
+<li>Language specific community site
+<ul>
+<li><a href="https://communities.sas.com/">SAS communities</a></li>
+<li><a href="https://community.rstudio.com/">RStudio community</a></li>
+</ul></li>
+<li>Open source language forums and mailing list.
+<ul>
+<li><a href="https://www.python.org/">python.org</a></li>
+<li><a href="https://www.r-project.org/">r-project.org</a></li>
+</ul></li>
+<li>Google groups</li>
+<li>…</li>
+</ul>
+</div>
+<div id="you-said-reproducible-exemple-reprex" class="section level2">
+<h2>You said REPRoducible EXemple (REPREX) ?</h2>
+<p>I first came to know of <strong>reproducible example</strong> while practicing coding with <code>Stack Overflow</code>. There are two simple and difficult subjects when interacting on site and forums in <strong>asking a good question</strong> and <strong>giving a good answer</strong>. Indeed asking or trying to help :</p>
+<ul>
+<li><p>compels you to sum up whatever problems you are trying to solve into (ideally) smaller code problems. This is important since you will get clear output : a well formulated code problem will either work or not.</p></li>
+<li><p>to that end you have to share sufficient sample data (thus the <strong>example</strong>) and runnable code (hence the <strong>reproducible</strong>) to illustrate what you want to achieve.</p></li>
+</ul>
+<p>In that perspective <code>StackOverflow</code> is a good place to practice and learn with enough gamification with points and bronze/silver/gold badges to keep you motivated for a time and feedback (sometime nice, sometime harsh) on the quality of your contribution.</p>
+<p><strong>To sum up</strong> : a <strong>REPRodicible EXample</strong> is a bundle of information (data, runnable codes, environment, OS and package version) allowing one to share his results and error identically.</p>
+<p>Such object is quite useful to :</p>
+<ul>
+<li>ensure that someone gets to the point where you are and understand what you want to achieve [question side]</li>
+<li>reproduce error messages and bugs [general side]</li>
+<li>share a solution that should work for everyone [answer side]</li>
+</ul>
+<p>SO Resources :</p>
+<ul>
+<li><a href="https://stackoverflow.com/help/how-to-ask">how-to-ask</a></li>
+<li><a href="https://stackoverflow.com/help/minimal-reproducible-example">minimal-reproducible-example</a></li>
+</ul>
+<hr />
+<p>Today I was working with Python and SAS. Having used mostly <code>R</code> before, the first thing I compared was how to get help from the documentation (with examples, not always runnable) and forums (with reprex).</p>
+<p>For example suppose you have to clean some data by replacing the ▒ character with something. One universal format used in data science software is the <code>data frame</code> (Python, R) or the <code>table</code> (SAS) data format. Those objects allows one to wrangle data and organize it in a meaningful way for analysis.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">var1</th>
+<th align="left">var2</th>
+<th align="right">var3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">gr¦pefruit</td>
+<td align="left">ugli fruit</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">huckleberry</td>
+<td align="left">kumquat</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">duri¦n</td>
+<td align="left">blackcurrant</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">d¦te</td>
+<td align="left">cantaloup¦</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">fig</td>
+<td align="left">canary m¦lon</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">s¦l¦l berry</td>
+<td align="left">rambutan</td>
+<td align="right">5</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div id="sas" class="section level3">
+<h3>SAS</h3>
+<p>The first step to dive into this problem is to reproduce the data. In SAS there are several ways to share sample data such as :</p>
+<ul>
+<li>using a built-in sample data available (in the sashelp)</li>
+</ul>
+<pre><code>data work.test ;
+  set sashelp.cars (obs = 10) ; 
+run ;</code></pre>
+<ul>
+<li>use a CSV file (or any popular other format) - this method is not recommended though since it puts extra work on the side of the one that wants to help you or reproduce your research</li>
+</ul>
+<pre><code>/* use the work library for tests */
+proc import file = &quot;path_to_file&quot; out = work.table_name ; run;</code></pre>
+<ul>
+<li>with a data step and <code>datalines</code> command (I have cheated a little by adding the <code>|</code> separator to simplify things)</li>
+</ul>
+<pre><code>data test;
+    infile datalines dsd dlm=&#39;|&#39; truncover ;
+    input var1 :$20. var2 :$20. var3 ;
+    datalines ;
+gr¦pefruit|ugli fruit|4
+huckleberry|kumquat|6
+duri¦n|blackcurrant|1
+d¦te|cantaloup¦|1
+fig|canary m¦lon|6
+s¦l¦l berry|rambutan|5
+;;;;
+run;
+
+/* that gives */
+/*
+&gt; 1 gr¦pefruit  ugli fruit  4
+&gt; 2 huckleberry kumquat 6   
+&gt; 3 duri¦n  blackcurrant    1   
+&gt; 4 d¦te    cantaloup¦  1   
+&gt; 5 fig canary m¦lon    6   
+&gt; 6 s¦l¦l berry rambutan    5
+*/</code></pre>
+<p>They are many ways to fix this data with for the examples the use of the <code>prxchange</code> and the <code>tranwrd</code> functions :</p>
+<pre><code>data test_clean ;
+    set test ;
+    var1 = prxchange(&quot;s/¦/a/i&quot;, -1, var1) ;
+    var2 = tranwrd(var2, &quot;¦&quot;, &quot;e&quot;) ;
+run ;
+
+/* result */
+/*
+&gt; 1 grapefruit  ugli fruit  4   
+&gt; 2 huckleberry kumquat 6   
+&gt; 3 durian  blackcurrant    1   
+&gt; 4 date    cantaloupe  1   
+&gt; 5 fig canary melon    6   
+&gt; 6 salal berry rambutan    5
+*/</code></pre>
+<p>This concludes the resolution of the problem with a reprex in question (for sharing the data) and a reprex in solution that anyone having an installation of SAS 9.4 available should be able to run with copy/paste.</p>
+<p>Note : aside from Stack Overflow, SAS users should find useful contents with the <a href="https://communities.sas.com/">SAS Communities</a> website that is a language specific free help platform.</p>
+<p>More ways to share SAS reprex with this <a href="https://communities.sas.com/t5/SAS-Communities-Library/How-to-create-a-data-step-version-of-your-data-AKA-generate/ta-p/258712">SAS Communities question</a></p>
+<hr />
+</div>
+<div id="python" class="section level3">
+<h3>Python</h3>
+<p><code>Pandas</code> should be your go to when handling data with Python. Here to reproduce the data we can directly as a pandas.Data.Frame one can load the pandas package</p>
+<pre class="python"><code>import pandas as pd</code></pre>
+<p>then define the dataframe from its rows with 6 vectors :</p>
+<pre class="python"><code>dfr_vec = pd.DataFrame([ [&quot;gr¦pefruit&quot;, &quot;ugli fruit&quot;, 4],
+                [&quot;huckleberry&quot;, &quot;kumquat&quot;, 6],
+                [&quot;duri¦n&quot;, &quot;blackcurrant&quot;, 1],
+                [&quot;d¦te&quot;, &quot;cantaloup¦&quot;, 1],
+                [&quot;fig&quot;, &quot;canary m¦lon&quot;, 6],
+                [&quot;s¦l¦l berry&quot;, &quot;rambutan&quot;, 5] ],
+            columns = [&quot;var1&quot;, &quot;var2&quot;, &quot;var3&quot;]
+            )
+dfr_vec</code></pre>
+<pre><code>##           var1          var2  var3
+## 0   gr¦pefruit    ugli fruit     4
+## 1  huckleberry       kumquat     6
+## 2       duri¦n  blackcurrant     1
+## 3         d¦te    cantaloup¦     1
+## 4          fig  canary m¦lon     6
+## 5  s¦l¦l berry      rambutan     5</code></pre>
+<p>or using the dictionary from with :</p>
+<pre class="python"><code>dfr_dic = pd.DataFrame({&quot;var1&quot; : [&quot;gr¦pefruit&quot;, &quot;huckleberry&quot;,&quot;duri¦n&quot;,&quot;d¦te&quot;,&quot;fig&quot;,&quot;s¦l¦l berry&quot;],
+&quot;var2&quot; : [&quot;ugli fruit&quot;,&quot;kumquat&quot;, &quot;blackcurrant&quot;,&quot;cantaloup¦&quot;,&quot;canary m¦lon&quot;, &quot;rambutan&quot;],
+&quot;var3&quot; : [4, 6, 1, 1, 6, 5]})
+dfr_dic</code></pre>
+<pre><code>##           var1          var2  var3
+## 0   gr¦pefruit    ugli fruit     4
+## 1  huckleberry       kumquat     6
+## 2       duri¦n  blackcurrant     1
+## 3         d¦te    cantaloup¦     1
+## 4          fig  canary m¦lon     6
+## 5  s¦l¦l berry      rambutan     5</code></pre>
+<ul>
+<li>pd.read_clipboard : allows one to import the data as a <code>pandas.DataFrame</code> from what is copied in the clipboard. Here for purpose of the example you can test it with copying the <code>print</code> (the <code>head</code> method won’t work well) of the previous data frame :</li>
+</ul>
+<pre><code>          var1          var2  var3
+0   gr¦pefruit    ugli fruit     4
+1  huckleberry       kumquat     6
+2       duri¦n  blackcurrant     1
+3         d¦te    cantaloup¦     1
+4          fig  canary m¦lon     6
+5  s¦l¦l berry      rambutan     5</code></pre>
+<p>becomes :</p>
+<pre><code># read data frame from clipboard
+dfr_bis = pd.read_clipboard(sep=&#39;\s\s+&#39;)
+dfr_bis
+
+          var1          var2  var3
+0   gr¦pefruit    ugli fruit     4
+1  huckleberry       kumquat     6
+2       duri¦n  blackcurrant     1
+3         d¦te    cantaloup¦     1
+4          fig  canary m¦lon     6
+5  s¦l¦l berry      rambutan     5</code></pre>
+<p>Fixing the character issue with pandas :</p>
+<pre class="python"><code>dfr_dic[&#39;var1&#39;] = dfr_dic[&#39;var1&#39;].str.replace(&#39;¦&#39;,&#39;a&#39;)
+dfr_dic[&#39;var2&#39;] = dfr_dic[&#39;var2&#39;].str.replace(&#39;¦&#39;,&#39;e&#39;)
+dfr_dic</code></pre>
+<pre><code>##           var1          var2  var3
+## 0   grapefruit    ugli fruit     4
+## 1  huckleberry       kumquat     6
+## 2       durian  blackcurrant     1
+## 3         date    cantaloupe     1
+## 4          fig  canary melon     6
+## 5  salal berry      rambutan     5</code></pre>
+<p>More resources :
+- <a href="https://stackoverflow.com/questions/20109391/how-to-make-good-reproducible-pandas-examples">how-to-make-good-reproducible-pandas-examples</a></p>
+<ul>
+<li><a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">pandas cheatcheet</a></li>
+</ul>
+<hr />
+</div>
+<div id="r" class="section level3">
+<h3>R</h3>
+<p><strong>Sharing data</strong></p>
+<p>Most of the time the data already exists in memory (here with <code>dfr</code>). So you should sample it if needed
+with :</p>
+<pre class="r"><code>dfr_head &lt;- head(dfr)
+
+# or randomly
+
+dfr_sample &lt;- dfr[ sample(x = 1:nrow(dfr), size = 6) , ]</code></pre>
+<p>Then you can either write yourself the data to share as below by rows or by columns or <code>dput()</code> the package <code>datapasta</code> to produce such output.</p>
+<ol start="0" style="list-style-type: decimal">
+<li><code>dput</code> is a base R function to ouput “text representation of an R object”</li>
+</ol>
+<pre class="r"><code>dput(dfr)</code></pre>
+<pre><code>## structure(list(var1 = c(&quot;gr¦pefruit&quot;, &quot;huckleberry&quot;, &quot;duri¦n&quot;, 
+## &quot;d¦te&quot;, &quot;fig&quot;, &quot;s¦l¦l berry&quot;), var2 = c(&quot;ugli fruit&quot;, &quot;kumquat&quot;, 
+## &quot;blackcurrant&quot;, &quot;cantaloup¦&quot;, &quot;canary m¦lon&quot;, &quot;rambutan&quot;), var3 = c(4L, 
+## 6L, 1L, 1L, 6L, 5L)), row.names = c(NA, -6L), class = c(&quot;tbl_df&quot;, 
+## &quot;tbl&quot;, &quot;data.frame&quot;))</code></pre>
+<ol style="list-style-type: decimal">
+<li><code>datapaste::trible_paste</code> for printing inline an existing dataframe by rows</li>
+</ol>
+<pre><code>datapasta::tribble_paste(dfr)
+
+tibble::tribble(
+                   ~var1,          ~var2, ~var3,
+            &quot;gr¦pefruit&quot;,   &quot;ugli fruit&quot;,    4L,
+           &quot;huckleberry&quot;,      &quot;kumquat&quot;,    6L,
+                &quot;duri¦n&quot;, &quot;blackcurrant&quot;,    1L,
+                  &quot;d¦te&quot;,   &quot;cantaloup¦&quot;,    1L,
+                   &quot;fig&quot;, &quot;canary m¦lon&quot;,    6L,
+           &quot;s¦l¦l berry&quot;,     &quot;rambutan&quot;,    5L
+           )</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><code>datapasta::df_paste</code> for printing inline an existing dataframe by columns</li>
+</ol>
+<pre><code>datapasta::df_paste(dfr)
+
+data.frame(
+  stringsAsFactors = FALSE,
+                 var1 = c(&quot;gr¦pefruit&quot;,
+                          &quot;huckleberry&quot;,&quot;duri¦n&quot;,&quot;d¦te&quot;,&quot;fig&quot;,&quot;s¦l¦l berry&quot;),
+                 var2 = c(&quot;ugli fruit&quot;,&quot;kumquat&quot;,
+                          &quot;blackcurrant&quot;,&quot;cantaloup¦&quot;,&quot;canary m¦lon&quot;,
+                          &quot;rambutan&quot;),
+              var3 = c(4L, 6L, 1L, 1L, 6L, 5L)
+   )</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>From the clipboard you can copy the table below and paste is follows</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th align="left">var1</th>
+<th align="left">var2</th>
+<th align="right">var3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">gr¦pefruit</td>
+<td align="left">ugli fruit</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">huckleberry</td>
+<td align="left">kumquat</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">duri¦n</td>
+<td align="left">blackcurrant</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">d¦te</td>
+<td align="left">cantaloup¦</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">fig</td>
+<td align="left">canary m¦lon</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">s¦l¦l berry</td>
+<td align="left">rambutan</td>
+<td align="right">5</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>datapasta::tribble_paste()</code></pre>
+<p><strong>Answering the problem at hand and sharing your rersult in a reproducible way</strong></p>
+<pre class="r"><code># Method 1 - base R
+dfr_clean &lt;- dfr
+dfr_clean$var1 &lt;- gsub(pattern = &quot;¦&quot;, replacement = &quot;a&quot;, x = dfr$var1)
+dfr_clean[[&quot;var2&quot;]] &lt;- gsub(pattern = &quot;¦&quot;, replacement = &quot;e&quot;, x = dfr$var2)
+
+# Method 2 - tidyverse
+library(dplyr)
+library(stringr)
+dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;¦&quot;, replacement = &quot;a&quot;),
+           var2 = str_replace_all(string = var2, pattern = &quot;¦&quot;, replacement = &quot;e&quot;)
+           )</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   var1        var2          var3
+##   &lt;chr&gt;       &lt;chr&gt;        &lt;int&gt;
+## 1 grapefruit  ugli fruit       4
+## 2 huckleberry kumquat          6
+## 3 durian      blackcurrant     1
+## 4 date        cantaloupe       1
+## 5 fig         canary melon     6
+## 6 salal berry rambutan         5</code></pre>
+<p>** Finally : Why sharing runnable sample code with R is easy **</p>
+<p>Because some genius already made the hard work for you !</p>
+<p>The package <code>reprex</code> was originaly created by Jenny Bryan. It allows one to ensure that you are effectively sharing a reprex as such :</p>
+<ul>
+<li>if your code is not runnable in a new blank R session (no outside global/local variable shall work here) –&gt; it fails.</li>
+<li>your data must be available either in the code or any other viable way (like a public API)</li>
+<li>package version and other session information can be shared</li>
+<li>bonus : it handles sharing graphics with the <em>imgur</em> service</li>
+</ul>
+<p>That way one could answer the question at hand with a complete set of information including the environment used (OS and packages version) as follow :</p>
+<p><del><em>Special characters are not handled well for now, other language than English can use ANSI code (for Europe, utf8 otherwise) this way : <code>¦</code> is coded <code>\xa6</code>.</em></del></p>
+<p><strong>Edit</strong> : updating <code>reprex</code> to the dev version solved the issue (specific to windows)</p>
+<pre class="r"><code>reprex::reprex(x = {
+    dfr &lt;- tibble::tribble(
+        ~var1,          ~var2, ~var3,
+        &quot;gr\xa6pefruit&quot;,   &quot;ugli fruit&quot;,    4L,
+        &quot;huckleberry&quot;,      &quot;kumquat&quot;,    6L,
+        &quot;duri\xa6n&quot;, &quot;blackcurrant&quot;,    1L,
+        &quot;d\xa6te&quot;,   &quot;cantaloup\xa6&quot;,    1L,
+        &quot;fig&quot;, &quot;canary m\xa6lon&quot;,    6L,
+        &quot;s\xa6l\xa6l berry&quot;,     &quot;rambutan&quot;,    5L
+    )
+    dfr
+    
+    # Method 1 - base R
+    dfr_clean &lt;- dfr
+    dfr_clean$var1 &lt;- gsub(pattern = &quot;\xa6&quot;, replacement = &quot;a&quot;, x = dfr$var1)
+    dfr_clean[[&quot;var2&quot;]] &lt;- gsub(pattern = &quot;\xa6&quot;, replacement = &quot;e&quot;, x = dfr$var2)
+    
+    # Method 2 - tidyverse
+    suppressPackageStartupMessages( library(dplyr) )
+    suppressPackageStartupMessages( library(stringr) )
+    dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;\xa6&quot;, replacement = &quot;a&quot;),
+               var2 = str_replace_all(string = var2, pattern = &quot;\xa6&quot;, replacement = &quot;e&quot;)
+    )
+}, si = TRUE, venue = &quot;so&quot;)</code></pre>
+<p>Which gives the following in the “Viewer” pane for preview and is also copied to the clipboard :</p>
+<!-- language-all: lang-r -->
+<pre><code>dfr &lt;- tibble::tribble(
+    ~var1,          ~var2, ~var3,
+    &quot;gr\xa6pefruit&quot;,   &quot;ugli fruit&quot;,    4L,
+    &quot;huckleberry&quot;,      &quot;kumquat&quot;,    6L,
+    &quot;duri\xa6n&quot;, &quot;blackcurrant&quot;,    1L,
+    &quot;d\xa6te&quot;,   &quot;cantaloup\xa6&quot;,    1L,
+    &quot;fig&quot;, &quot;canary m\xa6lon&quot;,    6L,
+    &quot;s\xa6l\xa6l berry&quot;,     &quot;rambutan&quot;,    5L
+)
+dfr
+#&gt; # A tibble: 6 x 3
+#&gt;   var1        var2          var3
+#&gt;   &lt;chr&gt;       &lt;chr&gt;        &lt;int&gt;
+#&gt; 1 gr¦pefruit  ugli fruit       4
+#&gt; 2 huckleberry kumquat          6
+#&gt; 3 duri¦n      blackcurrant     1
+#&gt; 4 d¦te        cantaloup¦       1
+#&gt; 5 fig         canary m¦lon     6
+#&gt; 6 s¦l¦l berry rambutan         5
+
+# Method 1 - base R
+dfr_clean &lt;- dfr
+dfr_clean$var1 &lt;- gsub(pattern = &quot;\xa6&quot;, replacement = &quot;a&quot;, x = dfr$var1)
+dfr_clean[[&quot;var2&quot;]] &lt;- gsub(pattern = &quot;\xa6&quot;, replacement = &quot;e&quot;, x = dfr$var2)
+
+# Method 2 - tidyverse
+suppressPackageStartupMessages( library(dplyr) )
+suppressPackageStartupMessages( library(stringr) )
+dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;\xa6&quot;, replacement = &quot;a&quot;),
+           var2 = str_replace_all(string = var2, pattern = &quot;\xa6&quot;, replacement = &quot;e&quot;)
+)
+#&gt; # A tibble: 6 x 3
+#&gt;   var1        var2          var3
+#&gt;   &lt;chr&gt;       &lt;chr&gt;        &lt;int&gt;
+#&gt; 1 grapefruit  ugli fruit       4
+#&gt; 2 huckleberry kumquat          6
+#&gt; 3 durian      blackcurrant     1
+#&gt; 4 date        cantaloupe       1
+#&gt; 5 fig         canary melon     6
+#&gt; 6 salal berry rambutan         5</code></pre>
+<p><sup>Created on 2020-11-08 by the <a href="https://reprex.tidyverse.org">reprex package</a> (v0.3.0)</sup></p>
+<pre><code>devtools::session_info()
+#&gt; - Session info ---------------------------------------------------------------
+#&gt;  setting  value                       
+#&gt;  version  R version 4.0.2 (2020-06-22)
+#&gt;  os       Windows 10 x64              
+#&gt;  system   x86_64, mingw32             
+#&gt;  ui       RTerm                       
+#&gt;  language (EN)                        
+#&gt;  collate  French_France.1252          
+#&gt;  ctype    French_France.1252          
+#&gt;  tz       Europe/Paris                
+#&gt;  date     2020-11-08                  
+#&gt; 
+#&gt; - Packages -------------------------------------------------------------------
+#&gt;  package     * version date       lib source        
+#&gt;  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.0.2)
+#&gt;  backports     1.1.7   2020-05-13 [1] CRAN (R 4.0.0)
+#&gt;  callr         3.4.3   2020-03-28 [1] CRAN (R 4.0.2)
+#&gt;  cli           2.0.2   2020-02-28 [1] CRAN (R 4.0.2)
+#&gt;  crayon        1.3.4   2017-09-16 [1] CRAN (R 4.0.2)
+#&gt;  desc          1.2.0   2018-05-01 [1] CRAN (R 4.0.2)
+#&gt;  devtools      2.3.0   2020-04-10 [1] CRAN (R 4.0.2)
+#&gt;  digest        0.6.25  2020-02-23 [1] CRAN (R 4.0.2)
+#&gt;  dplyr       * 1.0.0   2020-05-29 [1] CRAN (R 4.0.2)
+#&gt;  ellipsis      0.3.1   2020-05-15 [1] CRAN (R 4.0.2)
+#&gt;  evaluate      0.14    2019-05-28 [1] CRAN (R 4.0.2)
+#&gt;  fansi         0.4.1   2020-01-08 [1] CRAN (R 4.0.2)
+#&gt;  fs            1.4.2   2020-06-30 [1] CRAN (R 4.0.2)
+#&gt;  generics      0.0.2   2018-11-29 [1] CRAN (R 4.0.2)
+#&gt;  glue          1.4.1   2020-05-13 [1] CRAN (R 4.0.2)
+#&gt;  highr         0.8     2019-03-20 [1] CRAN (R 4.0.2)
+#&gt;  htmltools     0.5.0   2020-06-16 [1] CRAN (R 4.0.2)
+#&gt;  knitr         1.29    2020-06-23 [1] CRAN (R 4.0.2)
+#&gt;  lifecycle     0.2.0   2020-03-06 [1] CRAN (R 4.0.2)
+#&gt;  magrittr      1.5     2014-11-22 [1] CRAN (R 4.0.2)
+#&gt;  memoise       1.1.0   2017-04-21 [1] CRAN (R 4.0.2)
+#&gt;  pillar        1.4.6   2020-07-10 [1] CRAN (R 4.0.2)
+#&gt;  pkgbuild      1.1.0   2020-07-13 [1] CRAN (R 4.0.2)
+#&gt;  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.0.2)
+#&gt;  pkgload       1.1.0   2020-05-29 [1] CRAN (R 4.0.2)
+#&gt;  prettyunits   1.1.1   2020-01-24 [1] CRAN (R 4.0.2)
+#&gt;  processx      3.4.3   2020-07-05 [1] CRAN (R 4.0.2)
+#&gt;  ps            1.3.3   2020-05-08 [1] CRAN (R 4.0.2)
+#&gt;  purrr         0.3.4   2020-04-17 [1] CRAN (R 4.0.2)
+#&gt;  R6            2.4.1   2019-11-12 [1] CRAN (R 4.0.2)
+#&gt;  remotes       2.1.1   2020-02-15 [1] CRAN (R 4.0.2)
+#&gt;  rlang         0.4.7   2020-07-09 [1] CRAN (R 4.0.2)
+#&gt;  rmarkdown     2.3     2020-06-18 [1] CRAN (R 4.0.2)
+#&gt;  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 4.0.2)
+#&gt;  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 4.0.2)
+#&gt;  stringi       1.4.6   2020-02-17 [1] CRAN (R 4.0.0)
+#&gt;  stringr     * 1.4.0   2019-02-10 [1] CRAN (R 4.0.2)
+#&gt;  testthat      2.3.2   2020-03-02 [1] CRAN (R 4.0.2)
+#&gt;  tibble        3.0.3   2020-07-10 [1] CRAN (R 4.0.2)
+#&gt;  tidyselect    1.1.0   2020-05-11 [1] CRAN (R 4.0.2)
+#&gt;  usethis       1.6.1   2020-04-29 [1] CRAN (R 4.0.2)
+#&gt;  utf8          1.1.4   2018-05-24 [1] CRAN (R 4.0.2)
+#&gt;  vctrs         0.3.2   2020-07-15 [1] CRAN (R 4.0.2)
+#&gt;  withr         2.2.0   2020-04-20 [1] CRAN (R 4.0.2)
+#&gt;  xfun          0.15    2020-06-21 [1] CRAN (R 4.0.2)
+#&gt;  yaml          2.2.1   2020-02-01 [1] CRAN (R 4.0.0)
+#&gt; 
+#&gt; [1] C:/Users/cbonamy/Documents/R/win-library/4.0
+#&gt; [2] C:/Program Files/R/R-4.0.2/library</code></pre>
+<p>R References :</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example">SO how-to-make-a-great-r-reproducible-example</a></li>
+<li><a href="https://community.rstudio.com/t/faq-whats-a-reproducible-example-reprex-and-how-do-i-do-one/5219">R Community faq</a></li>
+<li><a href="https://community.rstudio.com/t/faq-how-to-do-a-minimal-reproducible-example-reprex-for-beginners/23061">R Community faq 2</a></li>
+</ul>
+</div>
+</div>
+<div id="to-go-further" class="section level2">
+<h2>To go further</h2>
+<p>One could share Docker container to fix the OS, packages version and so on. There are 2 nice package manager tool for that in Python and R with respectively <code>conda</code> (package management system) and <code>renv</code> (a R package that detect and register your configuration and used packages version).</p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/data-science/">data science</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/sas/">sas</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/python/">python</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/01/the-good-the-bad-and-the-ugly-in-data-imputation.en-us/" data-tooltip="The good, the bad and the ugly in data imputation">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/1/01/working-as-a-team-with-python-and-r/" data-tooltip="Working as a team with Python and R">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="#ZgotmplZ">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="#ZgotmplZ">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2021 Camille Bonamy. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/01/the-good-the-bad-and-the-ugly-in-data-imputation.en-us/" data-tooltip="The good, the bad and the ugly in data imputation">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/1/01/working-as-a-team-with-python-and-r/" data-tooltip="Working as a team with Python and R">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="#ZgotmplZ">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="#ZgotmplZ">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="#ZgotmplZ">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="#ZgotmplZ">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://en.gravatar.com/avatar/d3d38042dc802b87beb79e6af2434082" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Camille Bonamy</h4>
+    
+      <div id="about-card-bio">Data scientist in consulting for industry and banking. This blog is an attempt to plan and document my learnings.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data Scientist
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        France
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

@@ -7,45 +7,59 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Hugo 0.76.5 with theme Tranquilpeak 0.4.8-BETA">
 <meta name="author" content="Camille Bonamy">
-<meta name="keywords" content="">
-<meta name="description" content="Data structures in Python and R
+<meta name="keywords" content="methods">
+<meta name="description" content="Data structures in Python and R
 PyExample of question from Stack Overflow with python tag.
 How one can impute missing values from each (numeric) variable with a random value in the range [mean - standard_deviation , mean &#43; standard_deviation]
 Side note : such imputation method should not work well, but this an other question…
-Once reformulated this problem can be rephrased into 2 problems :
-How to produce a number randomly from a sample {X} within the range [mean(X) - sd(X) , mean(X) &#43; sd(X)]How to apply a transformation over the numeric variables of a data frame">
+Once reformulated this problem can be rephrased into 2 problems :">
 
 
-<meta property="og:description" content="Data structures in Python and R
+<meta property="og:description" content="Data structures in Python and R
 PyExample of question from Stack Overflow with python tag.
 How one can impute missing values from each (numeric) variable with a random value in the range [mean - standard_deviation , mean &#43; standard_deviation]
 Side note : such imputation method should not work well, but this an other question…
-Once reformulated this problem can be rephrased into 2 problems :
-How to produce a number randomly from a sample {X} within the range [mean(X) - sd(X) , mean(X) &#43; sd(X)]How to apply a transformation over the numeric variables of a data frame">
+Once reformulated this problem can be rephrased into 2 problems :">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Working as a team with Python and R">
 <meta name="twitter:title" content="Working as a team with Python and R">
-<meta property="og:url" content="/1/01/working-as-a-team-with-python-and-r/">
-<meta property="twitter:url" content="/1/01/working-as-a-team-with-python-and-r/">
+<meta property="og:url" content="/2020/11/working-as-a-team-with-python-and-r.en-us/">
+<meta property="twitter:url" content="/2020/11/working-as-a-team-with-python-and-r.en-us/">
 <meta property="og:site_name" content="">
-<meta property="og:description" content="Data structures in Python and R
+<meta property="og:description" content="Data structures in Python and R
 PyExample of question from Stack Overflow with python tag.
 How one can impute missing values from each (numeric) variable with a random value in the range [mean - standard_deviation , mean &#43; standard_deviation]
 Side note : such imputation method should not work well, but this an other question…
-Once reformulated this problem can be rephrased into 2 problems :
-How to produce a number randomly from a sample {X} within the range [mean(X) - sd(X) , mean(X) &#43; sd(X)]How to apply a transformation over the numeric variables of a data frame">
-<meta name="twitter:description" content="Data structures in Python and R
+Once reformulated this problem can be rephrased into 2 problems :">
+<meta name="twitter:description" content="Data structures in Python and R
 PyExample of question from Stack Overflow with python tag.
 How one can impute missing values from each (numeric) variable with a random value in the range [mean - standard_deviation , mean &#43; standard_deviation]
 Side note : such imputation method should not work well, but this an other question…
-Once reformulated this problem can be rephrased into 2 problems :
-How to produce a number randomly from a sample {X} within the range [mean(X) - sd(X) , mean(X) &#43; sd(X)]How to apply a transformation over the numeric variables of a data frame">
+Once reformulated this problem can be rephrased into 2 problems :">
 <meta property="og:locale" content="en-us">
 
   
+    <meta property="article:published_time" content="2020-11-03T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2020-11-03T00:00:00">
   
   
   
+    
+      <meta property="article:section" content="howto">
+    
+  
+  
+    
+      <meta property="article:tag" content="data science">
+    
+      <meta property="article:tag" content="SAS">
+    
+      <meta property="article:tag" content="Python">
+    
+      <meta property="article:tag" content="R">
+    
   
 
 
@@ -56,6 +70,9 @@ Once reformulated this problem can be rephrased into 2 problems :
 
 
 
+
+  <meta property="og:image" content="//d1u9biwaxjngwg.cloudfront.net/tag-plugins-showcase/car-6-140.jpg">
+  <meta property="twitter:image" content="//d1u9biwaxjngwg.cloudfront.net/tag-plugins-showcase/car-6-140.jpg">
 
 
 
@@ -72,7 +89,7 @@ Once reformulated this problem can be rephrased into 2 problems :
 
     
 
-    <link rel="canonical" href="/1/01/working-as-a-team-with-python-and-r/">
+    <link rel="canonical" href="/2020/11/working-as-a-team-with-python-and-r.en-us/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -218,13 +235,21 @@ Once reformulated this problem can be rephrased into 2 problems :
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="0001-01-01T00:00:00Z">
+      <time itemprop="datePublished" datetime="2020-11-03T00:00:00Z">
         
-  January 1, 1
+  November 3, 2020
 
       </time>
     
     
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/howto">howto</a>
+    
+  
+
   </div>
 
 </div>
@@ -232,6 +257,7 @@ Once reformulated this problem can be rephrased into 2 problems :
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>Data structures in Python and R</p>
@@ -255,6 +281,22 @@ Once reformulated this problem can be rephrased into 2 problems :
           <div id="post-footer" class="post-footer main-content-wrap">
             
               
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/data-science/">data science</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/sas/">SAS</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/python/">Python</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
+                  </div>
+                
+              
             
             <div class="post-actions-wrap">
   
@@ -263,7 +305,7 @@ Once reformulated this problem can be rephrased into 2 problems :
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/10/hello_reprex.en-us/" data-tooltip="Hello reprex">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/01/the-good-the-bad-and-the-ugly-in-data-imputation.en-us/" data-tooltip="The good, the bad and the ugly in data imputation">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -271,7 +313,7 @@ Once reformulated this problem can be rephrased into 2 problems :
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/10/hello_reprex.en-us/" data-tooltip="Hello reprex">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>
@@ -333,7 +375,7 @@ Once reformulated this problem can be rephrased into 2 problems :
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/10/hello_reprex.en-us/" data-tooltip="Hello reprex">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/01/the-good-the-bad-and-the-ugly-in-data-imputation.en-us/" data-tooltip="The good, the bad and the ugly in data imputation">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -341,7 +383,7 @@ Once reformulated this problem can be rephrased into 2 problems :
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/10/hello_reprex.en-us/" data-tooltip="Hello reprex">
               
                   <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
                   <i class="fa fa-angle-right"></i>

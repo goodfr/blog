@@ -8,22 +8,12 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/data-science/</loc>
     <lastmod>2021-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/experimentation/</loc>
-    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/imputation/</loc>
     <lastmod>2021-01-28T00:00:00+00:00</lastmod>
   </url>
   
@@ -43,37 +33,31 @@
   </url>
   
   <url>
-    <loc>/categories/howto/</loc>
-    <lastmod>2020-11-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/python/</loc>
-    <lastmod>2020-11-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2020-11-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/sas/</loc>
-    <lastmod>2020-11-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2020/11/working-as-a-team-with-python-and-r.en-us/</loc>
-    <lastmod>2020-11-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/2020/10/hello_reprex.en-us/</loc>
     <lastmod>2020-10-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2020-10-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2020-10-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/sas/</loc>
+    <lastmod>2020-10-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/archives/</loc>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
   </url>
   
 </urlset>

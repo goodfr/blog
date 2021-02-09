@@ -6,13 +6,9 @@ slug: the-good-the-bad-and-the-ugly-in-data-imputation.en-us
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
 thumbnailImagePosition: left
 coverImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
-categories:
-  - Imputation
 tags:
   - data science
   - experimentation
-keywords:
-  - tech
 ---
 
 ![Tranquilpeak](/img/showcase.png)

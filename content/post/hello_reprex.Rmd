@@ -5,17 +5,14 @@ editor_options:
 author: ''
 date: '2020-10-29'
 slug: hello_reprex.en-us
-thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
+thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
 thumbnailImagePosition: left
-categories:
-  - howto
+coverImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
 tags:
   - data science
   - SAS
   - Python
   - R
-keywords:
-  - methods
 ---
 
 ```{r setup, include=FALSE}

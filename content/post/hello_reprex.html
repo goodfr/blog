@@ -5,23 +5,19 @@ editor_options:
 author: ''
 date: '2020-10-29'
 slug: hello_reprex.en-us
-thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
+thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
 thumbnailImagePosition: left
-categories:
-  - howto
+coverImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
 tags:
   - data science
   - SAS
   - Python
   - R
-keywords:
-  - methods
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
-<p><em>Disclaimer</em> : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.</p>
 <div id="code-practice" class="section level2">
 <h2>Code practice</h2>
 <p>One of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).</p>
@@ -65,7 +61,7 @@ keywords:
 </ul>
 <hr />
 <p>Today I was working with Python and SAS. Having used mostly <code>R</code> before, the first thing I compared was how to get help from the documentation (with examples, not always runnable) and forums (with reprex).</p>
-<p>For example suppose you have to clean some data by replacing the ▒ character with something. One universal format used in data science software is the <code>data frame</code> (Python, R) or the <code>table</code> (SAS) data format. Those objects allows one to wrangle data and organize it in a meaningful way for analysis.</p>
+<p>For example suppose you have to clean some data by replacing the ¦ character with something. One universal format used in data science software is the <code>data frame</code> (Python, R) or the <code>table</code> (SAS) data format. Those objects allows one to wrangle data and organize it in a meaningful way for analysis.</p>
 <table>
 <thead>
 <tr class="header">
@@ -506,5 +502,5 @@ dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;¦&quot;
 </div>
 <div id="to-go-further" class="section level2">
 <h2>To go further</h2>
-<p>One could share Docker container to fix the OS, packages version and so on. There are 2 nice package manager tool for that in Python and R with respectively <code>conda</code> (package management system) and <code>renv</code> (a R package that detect and register your configuration and used packages version).</p>
+<p>One could share a Docker container to fix the OS, packages version and so on. There are 2 nice package manager tools for Python and R with respectively <code>conda</code> (package management system, to combine with a <code>requirement.txt</code> file and <code>pip freeze</code> for package versions) and <code>renv</code> (a R package that detect and register your configuration and used packages version).</p>
 </div>

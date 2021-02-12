@@ -6,28 +6,15 @@
     <description>Recent content in SAS on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/sas/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Working as a team with Python and R</title>
-      <link>/2020/11/working-as-a-team-with-python-and-r.en-us/</link>
-      <pubDate>Tue, 03 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/11/working-as-a-team-with-python-and-r.en-us/</guid>
-      <description>Data structures in Python and R
-PyExample of question from Stack Overflow with python tag.
-How one can impute missing values from each (numeric) variable with a random value in the range [mean - standard_deviation , mean + standard_deviation]
-Side note : such imputation method should not work well, but this an other question…
-Once reformulated this problem can be rephrased into 2 problems :</description>
-    </item>
-    
+    <lastBuildDate>Thu, 29 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/sas/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello reprex</title>
       <link>/2020/10/hello_reprex.en-us/</link>
       <pubDate>Thu, 29 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/10/hello_reprex.en-us/</guid>
-      <description>Disclaimer : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.
-Code practiceOne of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).</description>
+      <description>Code practiceOne of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).
+There are many ways to practice your coding skill such as doing data analysis project (e.g with TidyTuesday), modeling project (kaggle or challengedata), contributing to open source (by fixing github issues) or trying to help people with their questions on forums.</description>
     </item>
     
   </channel>

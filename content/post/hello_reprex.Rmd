@@ -200,7 +200,7 @@ dfr_vec = pd.DataFrame([ ["gr¦pefruit", "ugli fruit", 4],
 dfr_vec
 ```
 
-or using the dictionary from with :
+or using the dictionary form with :
 
 ```{python dictionary data frame}
 dfr_dic = pd.DataFrame({"var1" : ["gr¦pefruit", "huckleberry","duri¦n","d¦te","fig","s¦l¦l berry"],
@@ -210,7 +210,7 @@ dfr_dic
 ```
 
 
-* pd.read_clipboard : allows one to import the data as a  `pandas.DataFrame` from what is copied in the clipboard. Here for purpose of the example you can test it with copying the `print` (the `head` method won't work well) of the previous data frame :
+Another method is to use `pd.read_clipboard`that allows one to import the data as a  `pandas.DataFrame` from what is copied in the clipboard. Here for purpose of the example you can test it with copying the `print` (the `head` method won't work well) of the previous data frame :
 
 ```
           var1          var2  var3
@@ -248,8 +248,8 @@ dfr_dic
 ```
 
 More resources :
-- [how-to-make-good-reproducible-pandas-examples](https://stackoverflow.com/questions/20109391/how-to-make-good-reproducible-pandas-examples)
 
+- [how-to-make-good-reproducible-pandas-examples](https://stackoverflow.com/questions/20109391/how-to-make-good-reproducible-pandas-examples)
 - [pandas cheatcheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
 
 
@@ -260,8 +260,7 @@ More resources :
 
 **Sharing data**
 
-Most of the time the data already exists in memory (here with `dfr`). So you should sample it if needed 
-with :
+Most of the time the data already exists in memory (here with `dfr`). If the data is large you should sample it with (here to 6 rows, it can be more)  :
 
 ```{r r sample data}
 dfr_head <- head(dfr)
@@ -271,16 +270,16 @@ dfr_head <- head(dfr)
 dfr_sample <- dfr[ sample(x = 1:nrow(dfr), size = 6) , ]
 ```
 
-Then you can either write yourself the data to share as below by rows or by columns or `dput()` the package `datapasta` to produce such output.
+Then you can use one the following method to share the data :
 
-0. `dput` is a base R function to ouput "text representation of an R object"
+* `dput` is a base R function to ouput "text representation of an R object"
 
 ```{r dput}
 dput(dfr)
 ```
 
 
-1. `datapaste::trible_paste` for printing inline an existing dataframe by rows
+* `datapaste::trible_paste` for printing inline an existing dataframe by rows
 
 ```{}
 datapasta::tribble_paste(dfr)
@@ -296,7 +295,7 @@ tibble::tribble(
            )
 ```
 
-2. `datapasta::df_paste` for printing inline an existing dataframe by columns
+* `datapasta::df_paste` for printing inline an existing dataframe by columns
 
 ```{}
 datapasta::df_paste(dfr)
@@ -312,7 +311,7 @@ data.frame(
    )
 ```
 
-3. From the clipboard you can copy the table below and paste is follows
+* From the clipboard you can copy the table below and paste is follows
 
 ```{r data to copy to clipboard, echo = FALSE}
 # datapasta::tribble_paste(dfr)
@@ -350,7 +349,7 @@ dfr %>% mutate(var1 = str_replace_all(string = var1, pattern = "¦", replacement
 ```
 
 
-** Finally : Why sharing runnable sample code with R is easy **
+**Finally : Why sharing runnable sample code with R is easy**
 
 Because some genius already made the hard work for you !
 

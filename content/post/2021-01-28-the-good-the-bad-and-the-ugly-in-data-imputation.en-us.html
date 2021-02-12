@@ -3,19 +3,93 @@ title: The good, the bad and the ugly in data imputation
 author: goodfr
 date: '2021-01-28'
 slug: the-good-the-bad-and-the-ugly-in-data-imputation.en-us
-thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
+thumbnailImage: /img/goodbadhed_inv.png
 thumbnailImagePosition: left
-coverImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
+coverImage: /img/goodbadhed_invrh.png
 tags:
   - data science
-  - experimentation
+  - Python
+  - R
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
-<div class="figure">
-<img src="/img/showcase.png" alt="" />
-<p class="caption">Tranquilpeak</p>
-</div>
+<p><strong>photo credit : Clint Eastwood - The Good, The Bad and The Ugly</strong></p>
+<!-- output: -->
+<!--   html_document: -->
+<!--     code_folding: hide -->
 <!--more-->
+<div id="context" class="section level2">
+<h2>Context</h2>
+<p>Missing values are a common issue when using real world data. If not dealt with, it can cause serious studies to be invalidated (as when <a href="https://en.wikipedia.org/wiki/Thomas_Herndon">Thomas_Herndon</a> found out as a student that the “Growth in a Time of Debt” paper had errors, some caused by missing values).</p>
+<p>There are many strategies to handle missing values such as :
+* Omission (remove individuals or variables containing missing values)
+* Recoding (replace all non-available values by a constant with eventually adding a dummy variable for missingness)
+* Imputation (predict the missing values)</p>
+<p>Often times we can see a re-coding question on Stack Overflow or a short mention of imputation on blog posts before handling the main work of machine learning. But rarely we will see a study on how fit is the method used to problem at hand. <strong>As data cleaning and feature engineering, the process of choosing an acceptable strategy for non available values can be seen as time consuming and tiresome for data scientist.</strong> This leads to systematic processing (0 re-coding and dummy variables or forest imputation) with little to no evaluation.</p>
+<p>Thus to proceed in more rigorous scientific way we need to determine a criteria (or metric) to determine what can be said to be a good strategy in missing values handling.</p>
+<p>The study of missing values is in fact a whole research field with many sub-subject.</p>
+<ul>
+<li>random missing values</li>
+<li>dependent missing values</li>
+<li></li>
+</ul>
+</div>
+<div id="data-sets-to-test-this-methodology" class="section level2 tabset">
+<h2>3 data sets to test this methodology</h2>
+<p>To estimate strategies quality we need to control missingness. Thus we induce missing values in our data set.</p>
+<div id="data_1" class="section level3">
+<h3>data_1</h3>
+<pre class="r"><code># test</code></pre>
+</div>
+<div id="data_2" class="section level3">
+<h3>data_2</h3>
+</div>
+<div id="data_3" class="section level3">
+<h3>data_3</h3>
+</div>
+</div>
+<div id="explore-missingness" class="section level2 tabset">
+<h2>Explore missingness</h2>
+<p>In some case we want to see if missing values follow a pattern. For this purpose the package <code>naniar</code> in R comes in handy :</p>
+</div>
+<div id="apply-stategies" class="section level2 tabset">
+<h2>Apply stategies</h2>
+<div id="re-coding" class="section level3">
+<h3>Re-coding</h3>
+</div>
+<div id="simple" class="section level3">
+<h3>simple</h3>
+</div>
+<div id="with-dummies" class="section level3">
+<h3>with dummies</h3>
+</div>
+<div id="imputation" class="section level3">
+<h3>Imputation</h3>
+</div>
+</div>
+<div id="evaluation-of-the-strategies" class="section level2 tabset">
+<h2>Evaluation of the strategies</h2>
+<div id="data_1-1" class="section level3">
+<h3>data_1</h3>
+</div>
+<div id="data_2-1" class="section level3">
+<h3>data_2</h3>
+</div>
+<div id="data_3-1" class="section level3">
+<h3>data_3</h3>
+</div>
+<div id="comparison-of-omiting-vs-the-rest-in-an-overall-modeling-process" class="section level3">
+<h3>Comparison of omiting vs the rest in an overall modeling process</h3>
+</div>
+</div>
+<div id="take-home-message" class="section level2">
+<h2>Take home message</h2>
+<p>With this pretentious titled post I learnt that missing are a research subject as a whole.</p>
+<p>It can be challenging to assert which type of missing values is in a data set.</p>
+<p>References :</p>
+<ul>
+<li>miss static website</li>
+</ul>
+</div>

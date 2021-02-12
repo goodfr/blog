@@ -113,3 +113,5 @@ data.frame(err.locf, err.moy,
 	labs(title = "Boxplot of errors per imputation methods",
 	     y = "Error L1", x = "Methods") +
 	theme_bw()
+
+

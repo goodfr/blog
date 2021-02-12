@@ -30,8 +30,8 @@
       <pubDate>Thu, 29 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/10/hello_reprex.en-us/</guid>
-      <description>Disclaimer : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.
-Code practiceOne of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).</description>
+      <description>Code practiceOne of the first advice I would give my past stat student self is to get better at coding ASAP. Indeed knowing better a language shapes also your thinking so you can organize yourself better with the task at hand and not feel too overwhelmed (like during your internship).
+There are many ways to practice your coding skill such as doing data analysis project (e.g with TidyTuesday), modeling project (kaggle or challengedata), contributing to open source (by fixing github issues) or trying to help people with their questions on forums.</description>
     </item>
     
   </channel>

@@ -414,7 +414,7 @@ dfr_vec</code></pre>
 ## 3         d¦te    cantaloup¦     1
 ## 4          fig  canary m¦lon     6
 ## 5  s¦l¦l berry      rambutan     5</code></pre>
-<p>or using the dictionary from with :</p>
+<p>or using the dictionary form with :</p>
 <pre class="python"><code>dfr_dic = pd.DataFrame({&quot;var1&quot; : [&quot;gr¦pefruit&quot;, &quot;huckleberry&quot;,&quot;duri¦n&quot;,&quot;d¦te&quot;,&quot;fig&quot;,&quot;s¦l¦l berry&quot;],
 &quot;var2&quot; : [&quot;ugli fruit&quot;,&quot;kumquat&quot;, &quot;blackcurrant&quot;,&quot;cantaloup¦&quot;,&quot;canary m¦lon&quot;, &quot;rambutan&quot;],
 &quot;var3&quot; : [4, 6, 1, 1, 6, 5]})
@@ -426,9 +426,7 @@ dfr_dic</code></pre>
 ## 3         d¦te    cantaloup¦     1
 ## 4          fig  canary m¦lon     6
 ## 5  s¦l¦l berry      rambutan     5</code></pre>
-<ul>
-<li>pd.read_clipboard : allows one to import the data as a <code>pandas.DataFrame</code> from what is copied in the clipboard. Here for purpose of the example you can test it with copying the <code>print</code> (the <code>head</code> method won’t work well) of the previous data frame :</li>
-</ul>
+<p>Another method is to use <code>pd.read_clipboard</code>that allows one to import the data as a <code>pandas.DataFrame</code> from what is copied in the clipboard. Here for purpose of the example you can test it with copying the <code>print</code> (the <code>head</code> method won’t work well) of the previous data frame :</p>
 <pre><code>          var1          var2  var3
 0   gr¦pefruit    ugli fruit     4
 1  huckleberry       kumquat     6
@@ -459,9 +457,9 @@ dfr_dic</code></pre>
 ## 3         date    cantaloupe     1
 ## 4          fig  canary melon     6
 ## 5  salal berry      rambutan     5</code></pre>
-<p>More resources :
-- <a href="https://stackoverflow.com/questions/20109391/how-to-make-good-reproducible-pandas-examples">how-to-make-good-reproducible-pandas-examples</a></p>
+<p>More resources :</p>
 <ul>
+<li><a href="https://stackoverflow.com/questions/20109391/how-to-make-good-reproducible-pandas-examples">how-to-make-good-reproducible-pandas-examples</a></li>
 <li><a href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">pandas cheatcheet</a></li>
 </ul>
 <hr />
@@ -469,26 +467,25 @@ dfr_dic</code></pre>
 <div id="r" class="section level3">
 <h3>R</h3>
 <p><strong>Sharing data</strong></p>
-<p>Most of the time the data already exists in memory (here with <code>dfr</code>). So you should sample it if needed
-with :</p>
+<p>Most of the time the data already exists in memory (here with <code>dfr</code>). If the data is large you should sample it with (here to 6 rows, it can be more) :</p>
 <pre class="r"><code>dfr_head &lt;- head(dfr)
 
 # or randomly
 
 dfr_sample &lt;- dfr[ sample(x = 1:nrow(dfr), size = 6) , ]</code></pre>
-<p>Then you can either write yourself the data to share as below by rows or by columns or <code>dput()</code> the package <code>datapasta</code> to produce such output.</p>
-<ol start="0" style="list-style-type: decimal">
+<p>Then you can use one the following method to share the data :</p>
+<ul>
 <li><code>dput</code> is a base R function to ouput “text representation of an R object”</li>
-</ol>
+</ul>
 <pre class="r"><code>dput(dfr)</code></pre>
 <pre><code>## structure(list(var1 = c(&quot;gr¦pefruit&quot;, &quot;huckleberry&quot;, &quot;duri¦n&quot;, 
 ## &quot;d¦te&quot;, &quot;fig&quot;, &quot;s¦l¦l berry&quot;), var2 = c(&quot;ugli fruit&quot;, &quot;kumquat&quot;, 
 ## &quot;blackcurrant&quot;, &quot;cantaloup¦&quot;, &quot;canary m¦lon&quot;, &quot;rambutan&quot;), var3 = c(4L, 
 ## 6L, 1L, 1L, 6L, 5L)), row.names = c(NA, -6L), class = c(&quot;tbl_df&quot;, 
 ## &quot;tbl&quot;, &quot;data.frame&quot;))</code></pre>
-<ol style="list-style-type: decimal">
+<ul>
 <li><code>datapaste::trible_paste</code> for printing inline an existing dataframe by rows</li>
-</ol>
+</ul>
 <pre><code>datapasta::tribble_paste(dfr)
 
 tibble::tribble(
@@ -500,9 +497,9 @@ tibble::tribble(
                    &quot;fig&quot;, &quot;canary m¦lon&quot;,    6L,
            &quot;s¦l¦l berry&quot;,     &quot;rambutan&quot;,    5L
            )</code></pre>
-<ol start="2" style="list-style-type: decimal">
+<ul>
 <li><code>datapasta::df_paste</code> for printing inline an existing dataframe by columns</li>
-</ol>
+</ul>
 <pre><code>datapasta::df_paste(dfr)
 
 data.frame(
@@ -514,9 +511,9 @@ data.frame(
                           &quot;rambutan&quot;),
               var3 = c(4L, 6L, 1L, 1L, 6L, 5L)
    )</code></pre>
-<ol start="3" style="list-style-type: decimal">
+<ul>
 <li>From the clipboard you can copy the table below and paste is follows</li>
-</ol>
+</ul>
 <table>
 <thead>
 <tr class="header">
@@ -580,7 +577,7 @@ dfr %&gt;% mutate(var1 = str_replace_all(string = var1, pattern = &quot;¦&quot;
 ## 4 date        cantaloupe       1
 ## 5 fig         canary melon     6
 ## 6 salal berry rambutan         5</code></pre>
-<p>** Finally : Why sharing runnable sample code with R is easy **</p>
+<p><strong>Finally : Why sharing runnable sample code with R is easy</strong></p>
 <p>Because some genius already made the hard work for you !</p>
 <p>The package <code>reprex</code> was originaly created by Jenny Bryan. It allows one to ensure that you are effectively sharing a reprex as such :</p>
 <ul>

@@ -5,24 +5,19 @@ editor_options:
 author: ''
 date: '2020-10-29'
 slug: hello_reprex.en-us
-thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
+thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
 thumbnailImagePosition: left
-categories:
-  - howto
+coverImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city.jpg
 tags:
   - data science
   - SAS
   - Python
   - R
-keywords:
-  - methods
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-*Disclaimer* : I am a huge fan of the R language thus this post is biased toward the few things I know about Python and SAS linguas.
 
 
 ## Code practice
@@ -73,7 +68,7 @@ SO Resources :
 
 Today I was working with Python and SAS. Having used mostly `R` before, the first thing I compared was how to get help from the documentation (with examples, not always runnable) and forums (with reprex).
 
-For example suppose you have to clean some data by replacing the ▒ character with something. One universal format used in data science software is the `data frame` (Python, R) or the `table` (SAS) data format. Those objects allows one to wrangle data and organize it in a meaningful way for analysis. 
+For example suppose you have to clean some data by replacing the ¦ character with something. One universal format used in data science software is the `data frame` (Python, R) or the `table` (SAS) data format. Those objects allows one to wrangle data and organize it in a meaningful way for analysis. 
 
 ```{r create data, echo = FALSE}
 # table example here
@@ -83,8 +78,8 @@ dfr <- tibble::tibble(
   var2 = sample(stringr::fruit, 6),
   var3 = sample(1:6, 6, replace = TRUE)
 )
-dfr$var1 <- stringr::str_replace_all(string = dfr$var1, pattern =  "a", replacement = "▒")
-dfr$var2 <- stringr::str_replace_all(string = dfr$var2, pattern =  "e", replacement = "▒")
+dfr$var1 <- stringr::str_replace_all(string = dfr$var1, pattern =  "a", replacement = "¦")
+dfr$var2 <- stringr::str_replace_all(string = dfr$var2, pattern =  "e", replacement = "¦")
 
 knitr::kable(dfr, format = "simple")
 ```
@@ -519,4 +514,4 @@ R References :
 
 ## To go further
 
-One could share Docker container to fix the OS, packages version and so on. There are 2 nice package manager tool for that in Python and R with respectively `conda` (package management system) and `renv` (a R package that detect and register your configuration and used packages version).
+One could share a Docker container to fix the OS, packages version and so on. There are 2 nice package manager tools for Python and R with respectively `conda` (package management system, to combine with a `requirement.txt` file and `pip freeze` for package versions) and `renv` (a R package that detect and register your configuration and used packages version).
